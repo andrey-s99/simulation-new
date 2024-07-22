@@ -20,11 +20,13 @@ export default class Simulation {
     }
 
     startSimulation() { 
-        // Spawn Entities
-        for (const action of this.initActions) {
-            action.perform(this.map);
+        // Spawn new entities if first turn
+        if (this.turnCounter === 0) {
+            for (const action of this.initActions) {
+                action.perform(this.map);
+            }
         }
-
+        
         this.nextTurn();
     }
 
@@ -33,7 +35,7 @@ export default class Simulation {
     }
 
     nextTurn() {
-        console.log(this.turnCounter);
+        console.log(`Turn: ${this.turnCounter}`);
         this.renderer.renderMap(this.map);
         this.turnCounter++;
         if (this.turnCounter < config.turnLimit) {

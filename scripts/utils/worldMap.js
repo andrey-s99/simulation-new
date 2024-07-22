@@ -9,13 +9,28 @@ export default class WorldMap {
 
     updateMap() {}
 
+    isCellEmpty(position) {
+        if (this.getEntity(position)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     getEntity(position) {
         return this.mapData.get(position.toMapKey());
     }
 
-    addEntity(entity) {
-        this.mapData.set(entity.position.toMapKey(), entity);
+    addEntity(entity, position) {
+        this.mapData.set(position.toMapKey(), entity);
     }
 
-    removeEntity() {}
+    removeEntity(position) {
+        this.mapData.delete(position.toMapKey());
+    }
+
+    moveEntity(entity, from, to) {
+        this.removeEntity(from);
+        this.addEntity(entity, to);
+    }
 }

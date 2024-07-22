@@ -9,7 +9,7 @@ export default class ActionSpawn extends Action {
         while (spawnRate) {
             const spawnPosition = this.getNewSpawnPosition(map);
             const newEntity = this.spawnEntity(spawnPosition);
-            map.addEntity(newEntity);
+            map.addEntity(newEntity, newEntity.position);
 
             spawnRate--;
         }
@@ -19,12 +19,12 @@ export default class ActionSpawn extends Action {
     getSpawnRate() {}
 
     getNewSpawnPosition(map) {
-        let newSpawnPosition = this.getRandomPosition();
-        while (this.isOccupied(newSpawnPosition, map)) {
-            newSpawnPosition = this.getRandomPosition();
+        let spawnPosition = this.getRandomPosition();
+        while (!map.isCellEmpty(spawnPosition)) {
+            spawnPosition = this.getRandomPosition();
         }
 
-        return newSpawnPosition;
+        return spawnPosition;
     }
 
     getRandomPosition() {
@@ -32,13 +32,5 @@ export default class ActionSpawn extends Action {
         const y = Math.floor(Math.random() * config.mapHeight);
 
         return new Position(x, y);
-    }
-
-    isOccupied(position, map) {
-        if (map.getEntity(position)) {
-            return true;
-        }
-
-        return false;
     }
 }

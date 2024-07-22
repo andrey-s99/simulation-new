@@ -19,10 +19,10 @@ export default class Renderer {
 
         for (let y = 0; y < config.mapHeight; y++) {
             for (let x = 0; x < config.mapWidth; x++) {
-                let entity = map.getEntity(new Position(x, y));
+                const position = new Position(x, y);
 
-                if (entity) {
-                    this.#drawTile(entity.sprite, x, y);
+                if (!map.isCellEmpty(position)) {
+                    this.#drawTile(map.getEntity(position).sprite, x, y);
                 } else {
                     this.#drawTile(config.ground, x, y);
                 }
