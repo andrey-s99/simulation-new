@@ -5,12 +5,17 @@ class Config {
             return Config.instance;
         }
 
+        this.turnLimit = 300;
+        this.turnDelay = 1000;
+
         this.mapWidth = 20;
         this.mapHeight = 20;
         this.tileSize = 50;
 
-        this.canvasWidth = this.width * this.tileSize + 12;
-        this.canvasHeight = this.height * this.tileSize + 12;
+        this.ground = "🟫";
+
+        this.canvasWidth = (this.mapWidth * this.tileSize) + 12;
+        this.canvasHeight = (this.mapHeight * this.tileSize) + 12;
 
         // Spawn rates
         this.rockSpawnRate = Math.floor((this.mapWidth * this.mapHeight) * 0.03); // 3% of map is rocks

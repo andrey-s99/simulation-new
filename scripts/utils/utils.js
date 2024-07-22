@@ -1,4 +1,5 @@
 export { default as WorldMap } from "./worldMap.js"
 export { default as Renderer } from "./renderer.js"
 export { default as Position } from "./position.js"
+export { default as TurnTimer } from "./turnTimer.js"
 export { default as config } from "./config.js"

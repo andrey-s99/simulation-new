@@ -1,5 +1,5 @@
 import { Grass, Rock, Tree, Herbivore, Predator } from "./entities/entities.js"
-import { WorldMap, Renderer, config } from "./utils/utils.js"
+import { WorldMap, Renderer, TurnTimer, config } from "./utils/utils.js"
 import { ActionSpawnGrass, ActionSpawnRock, ActionSpawnTree, ActionSpawnHerbivore, ActionSpawnPredator } from "./actions/actions.js"
 
 export default class Simulation {
@@ -7,7 +7,8 @@ export default class Simulation {
         this.map = new WorldMap();
         this.renderer = new Renderer();
 
-        this.turnCount = 0;
+        this.turnCounter = 0;
+        this.turnTimer = new TurnTimer(config.turnDelay);
 
         this.initActions = [new ActionSpawnGrass(), 
                             new ActionSpawnRock(),
@@ -19,10 +20,24 @@ export default class Simulation {
     }
 
     startSimulation() { 
+        // Spawn Entities
         for (const action of this.initActions) {
             action.perform(this.map);
         }
 
+        this.nextTurn();
+    }
+
+    pauseSimulation() {
+        this.turnTimer.stopTimer();
+    }
+
+    nextTurn() {
+        console.log(this.turnCounter);
         this.renderer.renderMap(this.map);
+        this.turnCounter++;
+        if (this.turnCounter < config.turnLimit) {
+            this.turnTimer.startTimer(this.nextTurn.bind(this)); // Binding `this` to the method to not lose the context
+        }
     }
 }
