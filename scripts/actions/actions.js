@@ -1,0 +1,6 @@
+export { default as ActionSpawnGrass } from "./actionSpawnGrass.js"
+export { default as ActionSpawnRock } from "./actionSpawnRock.js"
+export { default as ActionSpawnTree } from "./actionSpawnTree.js"
+
+export { default as ActionSpawnHerbivore } from "./actionSpawnHerbivore.js"
+export { default as ActionSpawnPredator } from "./actionSpawnPredator.js"

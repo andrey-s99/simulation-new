@@ -1,6 +1,6 @@
 export default class Entity {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
+    constructor(position, sprite) {
+        this.position = position;
+        this.sprite = sprite;
     }
 }
