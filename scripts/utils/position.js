@@ -1,3 +1,5 @@
+import config from "./config";
+
 export default class Position {
     constructor(x, y) {
         this.x = x;
@@ -6,5 +8,14 @@ export default class Position {
 
     toMapKey() {
         return `${this.x}:${this.y}`;
+    }
+
+    equals(other) {
+        return ((this.x === other.x) && (this.y === other.y));
+    }
+
+    isValid() {
+        return ((this.x < config.mapWidth) && (this.y < config.mapHeight))
+                && ((this.x >= 0) && (this.y >= 0));
     }
 }

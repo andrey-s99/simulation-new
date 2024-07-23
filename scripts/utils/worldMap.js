@@ -1,5 +1,3 @@
-import config from "./config.js";
-
 export default class WorldMap {
     constructor() {
         this.mapData = new Map();

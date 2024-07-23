@@ -1,5 +1,4 @@
 import Simulation from "./simulation.js";
-
 const simulation = new Simulation();
 
 const playPauseButton = document.getElementById("play-pause-button");
