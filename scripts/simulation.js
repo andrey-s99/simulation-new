@@ -1,6 +1,5 @@
 import { WorldMap, Renderer, TurnTimer, config, Position, AStar } from "./utils/utils.js"
-import { ActionSpawnGrass, ActionSpawnRock, ActionSpawnTree, ActionSpawnHerbivore, ActionSpawnPredator } from "./actions/actions.js"
-import MaxHeap from "./utils/AStar/minHeap.js";
+import { ActionSpawnGrass, ActionSpawnRock, ActionSpawnTree, ActionSpawnHerbivore, ActionSpawnPredator, ActionMakeMove } from "./actions/actions.js"
 
 export default class Simulation {
     constructor() {
@@ -16,17 +15,13 @@ export default class Simulation {
                             new ActionSpawnHerbivore(),
                             new ActionSpawnPredator()];
 
-        this.turnActions = [];
-
-        this.aStar = new AStar(new Position(0, 0), [new Position(10, 3), new Position(7, 15)]);
+        this.turnActions = [new ActionMakeMove()];
     }
 
     startSimulation() { 
         // Spawn new entities if first turn
         if (this.turnCounter === 0) {
-            for (const action of this.initActions) {
-                action.perform(this.map);
-            }
+            this.initActions.forEach(action => action.perform(this.map));
         }
 
         this.nextTurn();
@@ -38,7 +33,8 @@ export default class Simulation {
 
     nextTurn() {
         console.log(`Turn: ${this.turnCounter}`);
-        console.log(this.aStar.findPath());
+
+        this.turnActions.forEach(action => action.perform(this.map));
 
         this.renderer.renderMap(this.map);
         this.turnCounter++;

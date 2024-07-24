@@ -4,3 +4,5 @@ export { default as ActionSpawnTree } from "./actionSpawnTree.js"
 
 export { default as ActionSpawnHerbivore } from "./actionSpawnHerbivore.js"
 export { default as ActionSpawnPredator } from "./actionSpawnPredator.js"
+
+export { default as ActionMakeMove} from "./actionMakeMove.js";

@@ -5,13 +5,12 @@ import PriorityQueue from "./priorityQueue.js"
 // AStar algorithm that finds an optimal path from the start to the nearest goal from the list of goals
 // Does not even use a worldMap!!!
 export default class AStar {
-    constructor (start, goals) {
+    constructor (start, goals, map) {
         this.start = start; // Start position
         this.goals = goals; // Array of goal positions
-        // this.openList = []; // List of nodes to explore
         this.openList = new PriorityQueue();
         this.closedList = new Set() // Set of evaluated nodes
-        console.log(goals);
+        this.map = map;
     }
 
     // Chebyshev distance based
@@ -70,17 +69,22 @@ export default class AStar {
 
     #reconstructPath(endNode) {
         let parent = endNode.parent;
-        let path = [];
+        let path = [endNode];
 
         while (parent) {
             path.push(parent);
             parent = parent.parent;
         }
+        path = path.reverse().map(node => node = node.position);
+        path.shift();
 
-        return path.reverse().map(node => node = node.position);
+        return path;
     }
 
     findPath() {
+        if (this.goals.length === 0) {
+            return [];
+        }
         // Add the start node to the openList
         this.openList.enqueue(new Node(this.start, 
                                     0, 
