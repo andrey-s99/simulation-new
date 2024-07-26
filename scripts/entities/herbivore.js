@@ -15,13 +15,10 @@ export default class Herbivore extends Creature {
         const nexPosition = path[0];
 
         if (path.length) {
-            // console.log(`${this.sprite} from ${this.position.x}:${this.position.y} found the goal and its next move is ${path[0].x}:${path[0].y}`);
             const entityInNextPosition = map.getEntity(nexPosition); // Keep track of the entity in the next position
             map.moveEntity(this, this.position, nexPosition);
             this.tryToEat(entityInNextPosition);
-        } else {
-            // console.log(`${this.sprite} from ${this.position.x}:${this.position.y} reached the goal`);
-        }
+        } 
     }
     
     tryToEat(entity) {
