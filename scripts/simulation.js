@@ -16,7 +16,9 @@ export default class Simulation {
                             new ActionSpawnPredator()];
 
         this.turnActions = [new ActionMakeMove(),
-                            new ActionRemoveZeroHPCreatures()];
+                            new ActionRemoveZeroHPCreatures(),
+                            new ActionSpawnGrass(),
+                            new ActionSpawnHerbivore()];
     }
 
     startSimulation() { 

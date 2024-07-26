@@ -5,7 +5,7 @@ class Config {
             return Config.instance;
         }
 
-        this.turnLimit = 300;
+        this.turnLimit = 1000;
         this.turnDelay = 1000;
 
         this.mapWidth = 30;
@@ -17,14 +17,17 @@ class Config {
         this.canvasWidth = (this.mapWidth * this.tileSize) + 12;
         this.canvasHeight = (this.mapHeight * this.tileSize) + 12;
 
-        // Spawn rates
+        // Spawn rates at start
         this.rockSpawnRate = Math.floor((this.mapWidth * this.mapHeight) * 0.03); // 3% of map is rocks
-        this.grassSpawnRate = Math.floor((this.mapWidth * this.mapHeight) * 0.08); // 8% of map is grass
+        this.grassSpawnRate = Math.floor((this.mapWidth * this.mapHeight) * 0.04); // 4% of map is grass
         this.treeSpawnRate = Math.floor((this.mapWidth * this.mapHeight) * 0.05); // 5% of map is trees
 
         this.herbivoreSpawnRate = Math.floor((this.mapWidth * this.mapHeight) * 0.05); // 5% of map is herbivores
-        this.predatorSpawnRate = Math.floor((this.mapWidth * this.mapHeight) * 0.02); // 3% of map is predators
+        this.predatorSpawnRate = Math.floor((this.mapWidth * this.mapHeight) * 0.02); // 2% of map is predators
         
+        this.minHerbivoreAmount = Math.floor((this.mapWidth * this.mapHeight) * 0.01); // min 2% of the map should be herbivores at all times
+        this.minGrassAmount = Math.floor((this.mapWidth * this.mapHeight) * 0.01); // min 2% of the map should be grass at all times
+
         this.herbivoreSpeed = 1;
         this.herbivoreHP = 20;
 
@@ -49,7 +52,7 @@ class Config {
     }
 
     // Restore random amount of HP to herbivore when it eats grass
-    restoreHP() {
+    getHPToRestoreHerbivore() {
         return Math.floor((Math.random() * (this.herbivoreMaxHPRestore - this.herbivoreMinHPRestore)) + this.herbivoreMinHPRestore);
     }
 }

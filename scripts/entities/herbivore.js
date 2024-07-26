@@ -26,7 +26,7 @@ export default class Herbivore extends Creature {
     
     tryToEat(entity) {
         if (entity instanceof Grass) {
-            const HPtoRestore = config.restoreHP();
+            const HPtoRestore = config.getHPToRestoreHerbivore();
             console.log(`${this.sprite} chomps on some ${config.entitySprites.grass} and restores ${HPtoRestore} HP at ${entity.position.x}:${entity.position.y}`)
             this.HP += HPtoRestore;
         }
