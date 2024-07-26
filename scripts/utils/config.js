@@ -23,10 +23,13 @@ class Config {
         this.treeSpawnRate = Math.floor((this.mapWidth * this.mapHeight) * 0.05); // 5% of map is trees
 
         this.herbivoreSpawnRate = Math.floor((this.mapWidth * this.mapHeight) * 0.05); // 5% of map is herbivores
-        this.predatorSpawnRate = Math.floor((this.mapWidth * this.mapHeight) * 0.03); // 3% of map is predators
+        this.predatorSpawnRate = Math.floor((this.mapWidth * this.mapHeight) * 0.02); // 3% of map is predators
         
         this.herbivoreSpeed = 1;
         this.herbivoreHP = 20;
+
+        this.herbivoreMinHPRestore = 5;
+        this.herbivoreMaxHPRestore = 11;
 
         this.predatorSpeed = 2;
         this.predatorHP = 20;
@@ -43,6 +46,11 @@ class Config {
         }
 
         Config.instance = this;
+    }
+
+    // Restore random amount of HP to herbivore when it eats grass
+    restoreHP() {
+        return Math.floor((Math.random() * (this.herbivoreMaxHPRestore - this.herbivoreMinHPRestore)) + this.herbivoreMinHPRestore);
     }
 }
 

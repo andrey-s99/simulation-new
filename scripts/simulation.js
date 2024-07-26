@@ -1,5 +1,5 @@
 import { WorldMap, Renderer, TurnTimer, config } from "./utils/utils.js"
-import { ActionSpawnGrass, ActionSpawnRock, ActionSpawnTree, ActionSpawnHerbivore, ActionSpawnPredator, ActionMakeMove } from "./actions/actions.js"
+import { ActionSpawnGrass, ActionSpawnRock, ActionSpawnTree, ActionSpawnHerbivore, ActionSpawnPredator, ActionMakeMove, ActionRemoveZeroHPCreatures } from "./actions/actions.js"
 
 export default class Simulation {
     constructor() {
@@ -15,7 +15,8 @@ export default class Simulation {
                             new ActionSpawnHerbivore(),
                             new ActionSpawnPredator()];
 
-        this.turnActions = [new ActionMakeMove()];
+        this.turnActions = [new ActionMakeMove(),
+                            new ActionRemoveZeroHPCreatures()];
     }
 
     startSimulation() { 
@@ -38,7 +39,7 @@ export default class Simulation {
 
         this.renderer.renderMap(this.map);
         this.turnCounter++;
-        
+
         if (this.turnCounter < config.turnLimit) {
             this.turnTimer.startTimer(this.nextTurn.bind(this)); // Binding `this` to the method to not lose the context
         }

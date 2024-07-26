@@ -13,14 +13,27 @@ export default class Predator extends Creature {
         const aStar = new AStar(this.position, map, [Herbivore]);
 
         const path = aStar.findPath();
+        const nexPosition = path[0];
 
         if (path.length) {
-            console.log(`${this.sprite} from ${this.position.x}:${this.position.y} found the goal and its next move is ${path[0].x}:${path[0].y}`);
-            map.moveEntity(this, this.position, path[0]);
+            //console.log(`${this.sprite} from ${this.position.x}:${this.position.y} found the goal and its next move is ${path[0].x}:${path[0].y}`);
+            const entityInNextPosition = map.getEntity(nexPosition); // Keep track of the entity in the next position
+            if (this.canAttack(entityInNextPosition)) { // Try to attack if herbivore is in next position
+                this.attack(entityInNextPosition);
+            } else {
+                map.moveEntity(this, this.position, nexPosition); // Move to the next cell if nothing to attack
+            }
         } else {
-            console.log(`${this.sprite} from ${this.position.x}:${this.position.y} reached the goal`);
+            //console.log(`${this.sprite} from ${this.position.x}:${this.position.y} reached the goal`);
         }
     }
 
-    attack() {}
+    canAttack(entity) {
+        return entity instanceof Herbivore;
+    }
+
+    attack(herbivore) {
+        herbivore.HP -= this.attackDamage;
+        console.log(`${this.sprite} attacks ${config.entitySprites.herbivore} for ${this.attackDamage} damage at ${herbivore.position.x}:${herbivore.position.y}`);
+    }
 }
