@@ -1,20 +1,16 @@
-import { Position } from "./utils.js";
+import { Rock, Tree, Herbivore, Predator } from "../entities/entities.js";
 
 export default class WorldMap {
     constructor() {
         this.mapData = new Map();
     }
 
-    clearMap() {}
-
-    updateMap() {}
-
     isCellEmpty(position) {
-        if (this.getEntity(position)) {
-            return false;
-        } else {
-            return true;
-        }
+        return !this.mapData.has(position.toMapKey());
+    }
+
+    isCellWalkable(position, goalsNames) {
+        return goalsNames.some((name) => this.getEntity(position) instanceof name) || this.isCellEmpty(position);
     }
 
     getEntitiesPositionsByClassName(name) {

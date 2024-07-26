@@ -9,7 +9,7 @@ export default class Herbivore extends Creature {
     }
 
     makeMove(map) {
-        const aStar = new AStar(this.position, map.getEntitiesPositionsByClassName(Grass), map);
+        const aStar = new AStar(this.position, map, [Grass]);
 
         const path = aStar.findPath();
 

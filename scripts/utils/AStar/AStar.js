@@ -3,17 +3,18 @@ import Node from "./node.js"
 import PriorityQueue from "./priorityQueue.js"
 
 // AStar algorithm that finds an optimal path from the start to the nearest goal from the list of goals
-// Does not even use a worldMap!!!
 export default class AStar {
-    constructor (start, goals, map) {
+    constructor (start, worldMap, goalsNames) {
         this.start = start; // Start position
-        this.goals = goals; // Array of goal positions
+        this.goalsNames = goalsNames;
+        this.worldMap = worldMap;
+        this.goals = [];
+        goalsNames.map(name => this.goals = this.goals.concat(this.worldMap.getEntitiesPositionsByClassName(name))); // Array of goal positions
         this.openList = new PriorityQueue();
         this.closedList = new Set() // Set of evaluated nodes
-        this.map = map;
     }
 
-    // Chebyshev distance based
+    // Chebyshev distance
     #heuristic(from, to) {
         return Math.max(Math.abs(to.x - from.x),Math.abs(to.y - from.y));
     }
@@ -48,7 +49,8 @@ export default class AStar {
 
         for (const distance of distances) {
             const position = new Position(node.position.x + distance.x, node.position.y + distance.y);
-            if (position.isValid()) {
+            // Check if the position is in map bounds and it is empty excluding the goal
+            if (position.isValid() && this.worldMap.isCellWalkable(position, this.goalsNames)) {
                 neighbors.push(position);
             }
         }

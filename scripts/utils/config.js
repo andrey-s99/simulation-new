@@ -8,9 +8,9 @@ class Config {
         this.turnLimit = 300;
         this.turnDelay = 1000;
 
-        this.mapWidth = 20;
-        this.mapHeight = 20;
-        this.tileSize = 50;
+        this.mapWidth = 30;
+        this.mapHeight = 30;
+        this.tileSize = 30;
 
         this.ground = "🟫";
 

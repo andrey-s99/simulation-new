@@ -10,7 +10,7 @@ export default class Predator extends Creature {
     }
 
     makeMove(map) {
-        const aStar = new AStar(this.position, map.getEntitiesPositionsByClassName(Herbivore), map);
+        const aStar = new AStar(this.position, map, [Herbivore]);
 
         const path = aStar.findPath();
 
